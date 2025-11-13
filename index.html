@@ -3,34 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مسابقه گیم رنتر</title>
+    <title>مسابقه گیم‌رنتر</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="container fade-in">
+
         <img src="logo.png" class="logo">
 
         <h1 class="title">به مسابقه گیم‌رنتر خوش اومدی ❤️</h1>
 
-        <p class="text">لطفاً آیدی تلگرام خودت رو وارد کن:</p>
+        <p class="text">آیدی تلگرام خودت رو وارد کن:</p>
 
         <input id="telegram" type="text" placeholder="@yourid">
 
         <button class="btn" onclick="startQuiz()">شروع آزمون</button>
+
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
     <script>
-        function startQuiz() {
+        /* ---------------- Firebase Config ---------------- */
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://PROJECT_ID-default-rtdb.firebaseio.com",
+            projectId: "PROJECT_ID",
+            storageBucket: "PROJECT_ID.appspot.com",
+            messagingSenderId: "XXXXXX",
+            appId: "XXXXXX"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        /* ------------------------------------------------- */
+
+        async function getIP() {
+            let r = await fetch("https://api.ipify.org?format=json");
+            let j = await r.json();
+            return j.ip;
+        }
+
+        async function startQuiz() {
             let id = document.getElementById("telegram").value.trim();
+
             if (!id.startsWith("@")) {
                 alert("آیدی باید با @ شروع بشه!");
                 return;
             }
 
-            localStorage.setItem("telegram_id", id);
-            window.location.href = "quiz.html";
+            let ip = await getIP();
+            localStorage.setItem("ip_address", ip);
+
+            db.ref("users").once("value", snap => {
+                let users = snap.val();
+
+                for (let u in users) {
+                    if (users[u].telegram === id || users[u].ip === ip) {
+                        alert("❌ شما قبلاً در آزمون شرکت کرده‌اید!");
+                        return;
+                    }
+                }
+
+                localStorage.setItem("telegram_id", id);
+
+                window.location.href = "quiz.html";
+            });
         }
     </script>
+
 </body>
 </html>
