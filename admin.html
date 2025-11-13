@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت آزمون گیم‌رنتر</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            color: white;
+            direction: rtl;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ff2e2e;
+            text-align: center;
+        }
+        th {
+            background: #ff2e2e;
+        }
+        tr:nth-child(even) {
+            background: #111;
+        }
+        tr:nth-child(odd) {
+            background: #222;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container fade-in">
+
+        <img src="logo.png" class="logo">
+
+        <h1>ورود مدیر</h1>
+
+        <!-- ورود -->
+        <input id="pass" type="password" placeholder="رمز ورود را وارد کنید">
+        <button class="btn" onclick="login()">ورود</button>
+
+        <!-- پنل -->
+        <div id="panel" style="display:none;">
+            <h2 style="margin-top:30px;">لیست شرکت‌کنندگان</h2>
+            <table id="table"></table>
+        </div>
+
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        /* ---------------- Firebase Config ---------------- */
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://PROJECT_ID-default-rtdb.firebaseio.com",
+            projectId: "PROJECT_ID",
+            storageBucket: "PROJECT_ID.appspot.com",
+            messagingSenderId: "XXXXXX",
+            appId: "XXXXXX"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        /* ------------------------------------------------- */
+
+        const ADMIN_PASSWORD = "gamerenter123";   // ← رمز مدیریت را اینجا عوض کن
+
+        function login() {
+            let p = document.getElementById("pass").value.trim();
+
+            if (p !== ADMIN_PASSWORD) {
+                alert("❌ رمز اشتباه است");
+                return;
+            }
+
+            document.getElementById("panel").style.display = "block";
+
+            loadUsers();
+        }
+
+        function loadUsers() {
+            db.ref("users").on("value", snap => {
+
+                let users = snap.val();
+                let rows = [];
+
+                for (let key in users) {
+                    rows.push({
+                        telegram: users[key].telegram,
+                        score: users[key].score,
+                        ip: users[key].ip,
+                        time: users[key].time
+                    });
+                }
+
+                // مرتب‌سازی بر اساس امتیاز (نزولی)
+                rows.sort((a, b) => b.score - a.score);
+
+                let html = `
+                    <tr>
+                        <th>رتبه</th>
+                        <th>آیدی</th>
+                        <th>امتیاز</th>
+                        <th>IP</th>
+                        <th>زمان ثبت</th>
+                    </tr>
+                `;
+
+                rows.forEach((u, i) => {
+                    html += `
+                        <tr>
+                            <td>${i + 1}</td>
+                            <td>${u.telegram}</td>
+                            <td>${u.score}</td>
+                            <td>${u.ip}</td>
+                            <td>${new Date(u.time).toLocaleString("fa-IR")}</td>
+                        </tr>
+                    `;
+                });
+
+                document.getElementById("table").innerHTML = html;
+            });
+        }
+    </script>
+
+</body>
+</html>
