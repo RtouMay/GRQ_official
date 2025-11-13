@@ -3,14 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آزمون</title>
+    <title>آزمون گیم‌رنتر</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id="quiz-box" class="container fade-in">
-        <h2 id="question">در حال بارگذاری...</h2>
+
+    <!-- Countdown Box -->
+    <div id="countdown" class="countdown-box">
+        <h1 id="count-number">3</h1>
+    </div>
+
+    <!-- Quiz Box -->
+    <div id="quiz-box" class="container fade-in" style="display:none;">
+        <h2 id="question"></h2>
+
         <div id="options"></div>
+
+        <div class="timer">
+            ⏳ <span id="timer-value">20</span> ثانیه
+        </div>
 
         <div class="progress">
             <span id="progress-text"></span>
@@ -18,5 +30,6 @@
     </div>
 
     <script src="quiz.js"></script>
+
 </body>
 </html>
