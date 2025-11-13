@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پایان آزمون</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container fade-in">
+        <h1>آزمون تمام شد 🎉</h1>
+
+        <h2 id="score"></h2>
+
+        <p class="text">
+            اگه جزو برنده‌ها باشی تا ۲۴ ساعت آینده بهت پیام می‌دیم 🙌
+        </p>
+    </div>
+
+    <script>
+        let score = localStorage.getItem("score");
+        document.getElementById("score").innerText = score + " از 10 امتیاز";
+    </script>
+</body>
+</html>
