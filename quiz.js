@@ -1,11 +1,48 @@
+/* ============================
+      متغیرهای اصلی آزمون
+============================ */
+
 let questions = [];
 let current = 0;
 let score = 0;
+let timer;
+let timeLeft = 20;
+
+/* ============================
+       شروع آزمون — COUNTDOWN
+============================ */
+
+function startCountdown() {
+    const countdownEl = document.getElementById("countdown");
+    const numberEl = document.getElementById("count-number");
+
+    let c = 3;
+
+    let interval = setInterval(() => {
+        numberEl.innerText = c;
+        numberEl.style.transform = "scale(1.4)";
+        setTimeout(() => numberEl.style.transform = "scale(1)", 200);
+
+        if (c === 0) {
+            clearInterval(interval);
+            countdownEl.style.display = "none";
+            document.getElementById("quiz-box").style.display = "block";
+            showQuestion();
+        }
+
+        c--;
+    }, 1000);
+}
+
+startCountdown();
+
+/* ============================
+      خواندن سوالات از فایل TXT
+============================ */
 
 async function loadQuestions() {
     let txt = await fetch("questions.txt").then(r => r.text());
     parseTXT(txt);
-    showQuestion();
 }
 
 function parseTXT(data) {
@@ -13,7 +50,6 @@ function parseTXT(data) {
 
     blocks.forEach(block => {
         let q = block.split("[/Q]")[0].trim();
-
         let lines = q.split("\n").map(x => x.trim());
 
         let question = lines[0];
@@ -31,10 +67,13 @@ function parseTXT(data) {
     });
 }
 
+/* ============================
+      نمایش سوال و گزینه‌ها
+============================ */
+
 function showQuestion() {
     if (current >= questions.length) {
-        localStorage.setItem("score", score);
-        window.location = "finish.html";
+        finishQuiz();
         return;
     }
 
@@ -45,25 +84,72 @@ function showQuestion() {
         (current + 1) + " / " + questions.length;
 
     let optHTML = "";
-    ["A","B","C","D"].forEach((letter, i) => {
+    ["A", "B", "C", "D"].forEach((letter, i) => {
         optHTML += `
-            <div class="option" onclick="select('${letter}')">
+            <div class="option fade-in" onclick="select('${letter}')">
                 ${letter}) ${q.options[i]}
             </div>`;
     });
 
     document.getElementById("options").innerHTML = optHTML;
+
+    resetTimer();
 }
 
-function select(answer) {
-    if (answer === questions[current].answer) {
+/* ============================
+       تایمر 20 ثانیه‌ای
+============================ */
+
+function resetTimer() {
+    clearInterval(timer);
+    timeLeft = 20;
+
+    document.getElementById("timer-value").innerText = timeLeft;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById("timer-value").innerText = timeLeft;
+
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            current++;
+            showQuestion();
+        }
+    }, 1000);
+}
+
+/* ============================
+       انتخاب گزینه
+============================ */
+
+function select(letter) {
+    clearInterval(timer);
+
+    if (letter === questions[current].answer) {
         score++;
     } else {
         score--;
     }
 
-    current++;
-    showQuestion();
+    document.querySelectorAll(".option").forEach(opt => opt.style.pointerEvents = "none");
+
+    setTimeout(() => {
+        current++;
+        showQuestion();
+    }, 300);
 }
+
+/* ============================
+       پایان آزمون
+============================ */
+
+function finishQuiz() {
+    localStorage.setItem("score", score);
+    window.location.href = "finish.html";
+}
+
+/* ============================
+      شروع لود سوالات
+============================ */
 
 loadQuestions();
