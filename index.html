@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسابقه گیم رنتر</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container fade-in">
+        <img src="logo.png" class="logo">
+
+        <h1 class="title">به مسابقه گیم‌رنتر خوش اومدی ❤️</h1>
+
+        <p class="text">لطفاً آیدی تلگرام خودت رو وارد کن:</p>
+
+        <input id="telegram" type="text" placeholder="@yourid">
+
+        <button class="btn" onclick="startQuiz()">شروع آزمون</button>
+    </div>
+
+    <script>
+        function startQuiz() {
+            let id = document.getElementById("telegram").value.trim();
+            if (!id.startsWith("@")) {
+                alert("آیدی باید با @ شروع بشه!");
+                return;
+            }
+
+            localStorage.setItem("telegram_id", id);
+            window.location.href = "quiz.html";
+        }
+    </script>
+</body>
+</html>
