@@ -1,17 +1,89 @@
 [Q]
-سازنده بازی God of War کدومه؟
-A) EA
-B) Ubisoft
-C) Santa Monica
-D) Rockstar
+سازنده بازی God of War کدام است؟
+A) Rockstar
+B) Santa Monica
+C) Ubisoft
+D) EA
+ANSWER: B
+[/Q]
+
+[Q]
+قوی‌ترین کنسول حال حاضر کدام است؟
+A) PS5
+B) Xbox Series X
+C) Nintendo Switch
+D) Steam Deck
+ANSWER: B
+[/Q]
+
+[Q]
+شخصیت اصلی بازی The Witcher کیست؟
+A) Joel
+B) Geralt
+C) Artyom
+D) Ezio
+ANSWER: B
+[/Q]
+
+[Q]
+کدام یک شوتر اول‌شخص است؟
+A) FIFA
+B) DOOM
+C) GTA San Andreas
+D) Forza Horizon
+ANSWER: B
+[/Q]
+
+[Q]
+بازی Red Dead Redemption 2 توسط کدام شرکت ساخته شد؟
+A) CDPR
+B) Rockstar Games
+C) Ubisoft
+D) EA
+ANSWER: B
+[/Q]
+
+[Q]
+مسابقه جهانی League of Legends تحت عنوان چه نامی برگزار می‌شود؟
+A) Worlds
+B) Major
+C) Invitational
+D) Arena Cup
+ANSWER: A
+[/Q]
+
+[Q]
+چه کسی سازنده Minecraft است؟
+A) Markus Notch Persson
+B) Gabe Newell
+C) Sid Meier
+D) Todd Howard
+ANSWER: A
+[/Q]
+
+[Q]
+کدام یک سبک Battle Royale است؟
+A) PUBG
+B) Diablo
+C) Elden Ring
+D) Far Cry
+ANSWER: A
+[/Q]
+
+[Q]
+بازی Cyberpunk 2077 از کدام استودیوست؟
+A) Santa Monica
+B) Blizzard
+C) CD Projekt RED
+D) Epic Games
 ANSWER: C
 [/Q]
 
 [Q]
-کدام کنسول قدرت بیشتری دارد؟
-A) Xbox Series X
-B) PS5
-C) Nintendo Switch
-D) PS4
-ANSWER: A
+شخصیت اصلی سری بازی Uncharted کیست؟
+A) Lara Croft
+B) Max Payne
+C) Nathan Drake
+D) Sam Fisher
+ANSWER: C
 [/Q]
