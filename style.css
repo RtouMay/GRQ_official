@@ -1,0 +1,68 @@
+body {
+    background: #000;
+    color: #fff;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 40px;
+}
+
+.logo {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 400px;
+    margin: auto;
+}
+
+.title {
+    color: #ff2e2e;
+    font-size: 26px;
+}
+
+input {
+    width: 90%;
+    padding: 12px;
+    border: 2px solid #ff2e2e;
+    border-radius: 8px;
+    background: #111;
+    color: #fff;
+    margin-top: 15px;
+}
+
+.btn {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: #ff2e2e;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #ff5757;
+}
+
+.option {
+    background: #111;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #ff2e2e;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background: #ff2e2e;
+}
+
+.fade-in {
+    animation: fade 1s ease;
+}
+
+@keyframes fade {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
