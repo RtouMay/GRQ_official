@@ -8,19 +8,53 @@
 </head>
 
 <body>
-    <div class="container fade-in">
-        <h1>آزمون تمام شد 🎉</h1>
 
-        <h2 id="score"></h2>
+    <div class="container fade-in">
+        <img src="logo.png" class="logo">
+
+        <h1>🎉 آزمون به پایان رسید</h1>
+
+        <h2 id="score-box"></h2>
 
         <p class="text">
-            اگه جزو برنده‌ها باشی تا ۲۴ ساعت آینده بهت پیام می‌دیم 🙌
+            اگه جزو برنده‌ها باشی تا 24 ساعت آینده بهت پیام می‌دیم 🙌
         </p>
     </div>
 
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
     <script>
+        /* ---------------- Firebase Config ---------------- */
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://PROJECT_ID-default-rtdb.firebaseio.com",
+            projectId: "PROJECT_ID",
+            storageBucket: "PROJECT_ID.appspot.com",
+            messagingSenderId: "XXXXXX",
+            appId: "XXXXXX"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        /* ------------------------------------------------- */
+
+        // گرفتن اطلاعات کاربر
         let score = localStorage.getItem("score");
-        document.getElementById("score").innerText = score + " از 10 امتیاز";
+        let user = localStorage.getItem("telegram_id");
+        let ip = localStorage.getItem("ip_address");
+
+        document.getElementById("score-box").innerText = `امتیاز شما: ${score} از 10`;
+
+        // ذخیره در دیتابیس - فقط اگر قبلا ذخیره نشده باشد
+        db.ref("users/" + user.replace("@", "")).set({
+            telegram: user,
+            score: Number(score),
+            ip: ip,
+            time: new Date().toISOString()
+        });
     </script>
+
 </body>
 </html>
